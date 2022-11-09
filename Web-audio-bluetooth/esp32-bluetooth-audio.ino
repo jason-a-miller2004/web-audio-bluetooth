@@ -4,7 +4,7 @@
 // #include <Adafruit_VS1053.h>
 // #include "player.h"
 
-#include "BluetoothA2DPSink.h"
+#include "src/ESP32-A2DP/BluetoothA2DPSink.h"
 #include <cbuf.h>
 #include "bluetoothsink.h"
 
@@ -13,14 +13,6 @@ BluetoothA2DPSink a2dp_sink;
 void setup() {
   Serial.begin(115200);
   Serial.println("Bluetooth Audio Receiver");
-
-  // if (!player.begin()) {
-  //    Serial.println(F("Couldn't find VS1053, do you have the right pins defined?"));
-  //    while (1);
-  // } 
-  
-  // player.begin();
-  // player.setVolume(10,10); // Set volume for left, right channels. lower numbers == louder volume!
 
   circBuffer.flush();
 

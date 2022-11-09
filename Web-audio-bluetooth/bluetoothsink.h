@@ -19,14 +19,9 @@ void avrc_metadata_callback(uint8_t data1, const uint8_t *data2) {
 
 void handle_stream() {
   if (circBuffer.available()) { 
-    // if (player.readyForData()) { // Does the VS1053 want any more data (yet)?
       int bytesRead = circBuffer.read((char *)mp3buff, BUFFSIZE);
-      
       // If we didn't read the full 32 bytes, that's a worry
       // if (bytesRead != BUFFSIZE) Serial.printf("Only read %d bytes from  circular buffer\n", bytesRead);
-      
-      // player.playData(mp3buff, bytesRead); // Actually send the data to the VS1053
-    // }
   }
 }
 
