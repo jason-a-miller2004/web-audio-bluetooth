@@ -26,21 +26,22 @@ void handle_stream() {
 }
 
 void read_data_stream(const uint8_t *data, uint32_t length) {
+  int16_t *samples = (int16_t*) data;
+  uint32_t sample_count = length/2;
   if (circBuffer.room() > length) { // If we get -1 here it means nothing could be read from the stream
-    if (length > 0) { // Add them to the circular buffer
-      circBuffer.write((char *)data, length); // length seems to be 4096 every time
-      // Serial.printf("\nRead %lu bytes", length);
-      // Serial.printf("%d\n",data[0]); //will break code somehow  
-      // Serial.println(length); //0.05
-      // Serial.println(data[0]);
-      // Serial.println(data[1000]);
-      // Serial.println(data[0]<<8 | data[1]); //more wave like
-      Serial.println(data[1000]<<8 | data[1001]); //more wave like
-      // for(int i=0;i<length;i+=2){
-      //   Serial.println(data[i]<<8 | data[i+1]);
-      // }
-      // Serial.println(data[0] | data[1]<<8); //top/down rectangles
+    if (sample_count > 0) { // Add them to the circular buffer
+      // circBuffer.write((char *)data, length); // length seems to be 4096 every time
       
+      // Serial.print(samples[0]);
+      // Serial.print(",");
+      // Serial.print(samples[1]);
+      // Serial.println();
+
+      int sum = 0;
+      for(int i=0;i<length;i+=2){
+        sum += (samples[i] * samples[i]);
+      }
+      Serial.println(sum/sample_count);
     }
   } else {
     Serial.println("\nNothing to read from the stream");
