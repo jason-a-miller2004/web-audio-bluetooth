@@ -15,7 +15,6 @@ function makesound(){
   synth.triggerAttackRelease("C5", "1n");
 }
 
-
 function makemoresound(){
   const synth = new Tone.Synth().toDestination();
   const now = Tone.now()
@@ -26,10 +25,11 @@ function makemoresound(){
 }
 
 const osc = new Tone.Oscillator(440, "sine").toDestination();
+
 function makelongsound(){
   osc.start();
 
-  var slide = document.getElementById("myRange");
+  const slide = document.getElementById("myRange");
   var sliderDiv = document.getElementById("sliderAmount");
 
   slide.oninput = function() {
@@ -41,9 +41,3 @@ function makelongsound(){
 function stop(){
   osc.stop();
 }
-
-
-
-
-
-

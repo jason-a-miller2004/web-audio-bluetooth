@@ -25,6 +25,7 @@ void handle_stream() {
   }
 }
 
+uint32_t sum = 0;
 void read_data_stream(const uint8_t *data, uint32_t length) {
   int16_t *samples = (int16_t*) data;
   uint32_t sample_count = length/2;
@@ -37,7 +38,6 @@ void read_data_stream(const uint8_t *data, uint32_t length) {
       // Serial.print(samples[1]);
       // Serial.println();
 
-      int sum = 0;
       for(int i=0;i<length;i+=2){
         sum += (samples[i] * samples[i]);
       }

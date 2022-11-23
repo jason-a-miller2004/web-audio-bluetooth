@@ -21,7 +21,6 @@ c = np.loadtxt("-48.txt")
 d = np.loadtxt("-47.txt")
 e = np.loadtxt("-46.txt")
 f = np.loadtxt("-45.txt")
-
 g = np.loadtxt("-80.txt")
 h = np.loadtxt("-75.txt")
 i = np.loadtxt("-70.txt")
