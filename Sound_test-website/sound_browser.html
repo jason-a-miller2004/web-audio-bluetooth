@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Button to play sound</title>
+    <script src="http://unpkg.com/tone"></script>
+    <script src="test_sound.js"></script>
+  </head>
+
+  <body>
+    <button onclick="makesound()">sounds</button>
+    <button onclick="makemoresound()">more sounds</button>
+    <button onclick = "makelongsound()">long noise</button>
+    <button onclick = "stop()">stops "long noise"</button>
+    <div class="slider">
+      <input id="myRange" type="range" min="-80" max="-20" value="0">
+      <div id="sliderAmount"></div>
+    </div>
+  </body>
+</html>
