@@ -1,0 +1,16 @@
+Bluetooth Audio Receiver
+AVRC metadata rsp: attribute id 0x1, 
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
+This should output a really long message to test if ACCURACY is at ONE HUNDRED PERCENT
