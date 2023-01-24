@@ -8,6 +8,22 @@
   </head>
 
   <body>
+    <h3>Abstract</h3>
+    <div>
+    Utilizing tone.js, we are able to manipulate sound and send messages in the form of tones 
+    to bypass ios's complications with the bluetooth api. This also allows us to present a tool that can be used anywhere
+    in the form of a browser rather than an app that needs to be downloaded.
+    </div>
+
+    <h3>Data</h3>
+    <div>
+      With this graph you can see that as the decibel levels increase, there is an upward trend in data.<br>
+      This detail allows us to assign letters to different decibel levels.<br>
+      <img src="Sound_test-website/RMS_graph/output.png" /><br>
+      The bar graph below displays the accuracy difference between the various models that were used to interpret letters<br>
+      <img src="Sound_test-website/Accuracy_graph/acc_bar_graph.png" />
+    </div>
+
     <h3>Buttons that make sounds</h3>
     <div>
       <p>These buttons make sounds</p>
@@ -17,7 +33,7 @@
 
     <h3>Button that makes a long sound</h3>
     <div>
-      <p>This button plays a long sound that can be adjusted to different volume levels</p>
+      <p>This button plays a long sound that can be adjusted to different decibel levels</p>
       <p>The slider ranges from -80 to -20</p>
       <button onclick = "PlayLongSound()">Play</button>
       <button onclick = "Stop()">Stop</button>
@@ -29,12 +45,20 @@
 
     <h3>Button that sends a message that is encoded in sound</h3>
     <div>
+      <p>In case you don't have a microcontroller:</p>
+      <iframe width="420" height="325" frameborder="0" allowfullscreen src="https://www.youtube.com/embed/GkKwaquj-iU"></iframe>
       <p>This button plays a message ("def") that is encoded into sounds</p>
       <button onclick = "PlayMessage([-50,-100,-49,-100,-48,-100])">Play message</button>
     </div><br>
 
     <h3>Button that sends a custom message encoded in sound</h3>
     <div>
+      <p>In case you do not have a microcontroller, here are some demos:</p>
+      Version 2<br>
+      <iframe width="420" height="325" frameborder="0" allowfullscreen src="https://www.youtube.com/embed/7w7A5j_sBq8"></iframe><br><br>
+      Version 3<br>
+      <iframe width="420" height="325" frameborder="0" allowfullscreen src="https://www.youtube.com/embed/reQ0cXwQSHI"></iframe>
+      
       <p>This button plays a custom message encoded in sound <br>
         Messages to test:<br>
         abcdefghijklmnopqrstuvwxyz<br>
@@ -45,14 +69,16 @@
       <button onclick = "PlayCustomMessage()">Play custom message</button>
       <button onclick = "Stop()">Stop</button><br>
       <textarea id = "Cmessage" placeholder = "Enter Custom Message"></textarea>
-      <!-- <input type = "text" id = "Cmessage" placeholder = "Enter Custom Message"> -->
     </div>
 
-    <h3>Button that sends a tone at volume -50</h3>
+
+    <h3>Button that sends a tone at decibel level -50</h3>
     <div>
       <button onclick = "PlayDiffFreq()">Play sound</button>
       <button onclick = "FreqStop()">Stop</button>
     </div>
 
   </body>
+  
+  
 </html>
