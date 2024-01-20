@@ -1,0 +1,4 @@
+.vscode/
+_pycache_/
+old_website/__pycache__/
+__pycache__/
