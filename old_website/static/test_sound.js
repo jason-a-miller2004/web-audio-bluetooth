@@ -120,6 +120,8 @@ async function processResponse(dbLevel) {
   console.log(response)
 }
 
+// given a list of message volumes to play initializes silence buffer
+// and length to be played
 function playMessage(volume_list){
   let i =0;
   let bufferMessage = new Array(volume_list.length * OSC_LENGTH / BASE_LENGTH + (volume_list.length - 1) * SILENCE_LENGTH / BASE_LENGTH + START_END_BUFFER * 2 / BASE_LENGTH)
@@ -151,6 +153,7 @@ function playMessage(volume_list){
    
 }
 
+// plays an array of values as sound
 function arrayPlay(bufferMessage) {
   let i = 0
   Tone.start().then(() => {

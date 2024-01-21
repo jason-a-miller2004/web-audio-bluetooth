@@ -3,7 +3,7 @@ import wave
 
 
 if __name__ == '__main__':
-  file_name = "C:\\Users\\jason\\OneDrive\\Research\\Ubicomp Lab\\TT Recordings\\20dbtest.txt"
+  file_name = sys.argv[1]
   num_samples = 0
   with wave.open(file_name + '.wav', 'w') as wave_file:
     print(wave_file)

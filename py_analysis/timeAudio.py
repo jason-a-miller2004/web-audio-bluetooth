@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import sys
 
 if __name__ == '__main__':
-  file_path = "C:\\Users\\jason\\OneDrive\\Research\\Ubicomp Lab\\TT Recordings\\20dbtest.txt"
+  file_path = sys.argv[1]
   xData = []
   yData = []
   with open(file_path, 'r') as file:

@@ -1,14 +1,15 @@
-//Time basic message would play is SILENCE_LENGTH * (numSamples - 1)
-// + OSC_LENGTH * numSamples + 2 * START_END_BUFFER
-//EX: [-20, -20, -20] would play 
-//SILENCE: 2000ms, SOUND (-20): 40ms, SILENCE: 30, SOUND (-20): 40, SILENCE: 30, SOUND (-20): 40,  SILENCE: 2000
+/**
+ * Contains all sound playing functionality for 
+ * Web-Audio-Bluetooth Project
+ */
 const OSC_LENGTH = 200
 const SILENCE = -100000
 const SILENCE_LENGTH = 200
 const START_END_BUFFER = 2000
-const BASE_LENGTH = 5  //shortest length you can get sound to play is 5 ms (DONT CHANGE THIS VALUE UNLESS YOU KNOW WHAT YOUR DOING)
+const BASE_LENGTH = 5  //shortest length you can get sound to play is 5 ms
 const osc = new Tone.Oscillator(440, "sine").toDestination();
 
+// init Tone.js to work around browser limits
 function initSound() {
   let context = (window.AudioContext || window.webkitAudioContext) ?
     new (window.AudioContext || window.webkitAudioContext)() : null;
@@ -51,6 +52,7 @@ function testPlay(dbLevel, numSamples) {
 
 }
 
+// given a string input, plays out the encoded sound
 function playEncoding() {
   initSound();
 
@@ -81,6 +83,8 @@ function analysis(start, finish) {
   }, 3000);
 }
 
+// if currently analyzing data uses the following loop to
+// change sounds
 function analysisLoop(amplitudes, currentAmp) {
   //init oscillator
   initSound();
@@ -110,7 +114,13 @@ function analysisLoop(amplitudes, currentAmp) {
   });
 }
 
-//takes in a list of volumes to play and converts it to format to be played
+/* takes in a list of volumes to play and converts it to format to be played
+
+EX: [-20, -20, -20] would play the following sounds
+SILENCE: START_END_BUFFER ms, SOUND (-20): OSC_LENGTH, SILENCE: SILENCE_LENGTH,
+SOUND (-20): OSC_LENGTH, SILENCE: SILENCE_LENGTH, SOUND (-20): OSC_LENGTH
+SILENCE: START_END_BUFFER 
+*/
 function playMessage(volume_list){
   let i =0;
   let bufferMessage = new Array(volume_list.length * OSC_LENGTH / BASE_LENGTH + (volume_list.length - 1) * SILENCE_LENGTH / BASE_LENGTH + START_END_BUFFER * 2 / BASE_LENGTH)
@@ -147,6 +157,7 @@ function stop() {
   osc.stop();
 }
 
+// given a formatted sound message plays the sound
 function arrayPlay(bufferMessage) {
   let i = 0;
   Tone.start().then(() => {

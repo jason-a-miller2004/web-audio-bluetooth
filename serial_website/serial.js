@@ -1,25 +1,36 @@
+/**
+ * Receives input from microcontroller in Web-Audio-Bluetooth project
+ * Provides support for a serial plotter, recording data, recording analysis
+ * as well as various helper functions
+ */
+
 "use strict";
 
+// all possible data operations
 let recording = false;
 let plotting = false;
 let analyzing = false;
 let deciphering = false;
 
+// record global variables and consts
+const recordLength = 10; // in seconds
 let recordData = [];
-let recordLength = 10; // in seconds
 
+// serial plotter global vars and consts
+const serialPlotLength = 500; // amount of data per frame
+const serialPlotterUpdate = 50; // in ms
 let pauseSerialPlot = false;
-let serialPlotLength = 500;
 let serialPlotData = [];
-let serialPlotterUpdate = 50; // in ms
 
-let analyzeLength = 5; // in seconds
+// analysis global vars and consts
+const analyzeLength = 5; // in seconds
+const snipLength = 100;
+const ampAdjust = 244; // center of data
 let tableData = [];
-let snipLength = 100;
-let ampAdjust = 244;
 
 window.addEventListener("load", init);
 
+// Opens web serial connection on load
 function init() {
     document.querySelector("#connect").addEventListener('click', async () => {
         const port = await navigator.serial.requestPort();
@@ -59,12 +70,27 @@ function init() {
     });
 }
 
+// value handling function
+function processValue(value) {
+    let val = parseInt(value);
+    if(isNaN(val)) {
+        console.log(`microcontroller output: ${value}`);
+    } else {
+        if(recording) record(value);
+        if(plotting) addToPlot(value);
+        if(deciphering) decipher(value);
+    }    
+}
+
+// starts recording
 function startRecord() {
     console.log("starting record");
     recordData = [];
     recording = true;
 }
 
+// ends recording
+// returns array of data
 function stopRecord(visible) {
     console.log("stopping record");
     recording = false;
@@ -75,19 +101,7 @@ function stopRecord(visible) {
     return recordData;
 } 
 
-function processValue(value) {
-    let val = parseInt(value);
-    if(isNaN(val)) {
-        console.log(value);
-    } else {
-        if(recording) record(value);
-        if(plotting) addToPlot(value);
-        if(deciphering) decipher(value);
-    }
-    
-    
-}
-
+// helper function to see noise in sound signal when no sound is playing
 function calcAvgNoise() {
     startRecord();
     setTimeout(() => {
@@ -127,13 +141,15 @@ function visualizeRecord(data) {
     });
 }
 
+// given recorded data analyzes and provides stats
+// adds it to analysisTable
 function analyzeRecord(dbLevel, data) {
     console.log("analyzing: " + dbLevel + "db");
     let RMS = 0;
     let snipAvg = 0;
     let snips = [];
     let startRead = 2000;
-    //shifted over 500 to account for lag in serial writing
+    //shifted over 2000 to account for lag in serial writing
     //e.g still writing from previous dblevel when recording starts
     for(let i = startRead; i < data.length; i++) {
         if(i % (snipLength) == 0 && i != startRead) {
@@ -160,6 +176,8 @@ function analyzeRecord(dbLevel, data) {
         });
 }
 
+// shows plot of analysis
+// downloads copy of analysis data to computer
 function showAnalysis() {
     console.log("showing analysis");
     tableData.shift();
@@ -218,10 +236,12 @@ function showAnalysis() {
     tableData = [];
 }
 
+// pauses serial
 function pauseSerial() {
     pauseSerialPlot = !pauseSerialPlot;
 }
 
+// turns on and off serial plotter render
 function toggleSerialPlotter() {
     if(plotting) {
         plotting = false;
@@ -252,6 +272,7 @@ function toggleSerialPlotter() {
     }
 }
 
+// adds data to serial plotter
 function addToPlot(value) {
     if(serialPlotData.length != 0) {
         let prev = serialPlotData[serialPlotData.length - 1];
@@ -267,6 +288,7 @@ function addToPlot(value) {
     }
 }
 
+// stores sound data into an array
 function record(value) {
     recordData.push(value);
     if(recordData.length > 10000000) {
@@ -274,6 +296,8 @@ function record(value) {
     }
 }
 
+// helper function that returns a csv formatted string given
+// given an array of data
 function csvMaker(data) {  
     // Empty array for storing the values 
     let csvRows = []; 
@@ -303,6 +327,7 @@ function csvMaker(data) {
     return csvRows.join('\n') 
 }
 
+// given a csv formatted string downloads it to your computer
 function download(data) { 
   
     // Creating a Blob for having a csv file format  
@@ -326,6 +351,7 @@ function download(data) {
     a.click() 
 } 
 
+// helper class to process input serial stream
 class LineBreakTransformer {
     constructor() {
       // A container for holding stream data until a new line.

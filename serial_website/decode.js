@@ -1,3 +1,8 @@
+/**
+ * Mimics the micro-controller behaviour to help in debugging
+ * provides an encoding and decoding schema
+ */
+
 "use strict";
 
 let decodeTotal = 0;
@@ -36,6 +41,7 @@ const DECODE = {
     " ": 98.0
 }
 
+// given a string to play encodes them into sound db
 function encodemessage(message) {
     let sound_array = []
     for(let i = 0; i < message.length; i++) {
@@ -46,6 +52,7 @@ function encodemessage(message) {
     return sound_array;
 }
 
+// starts deciphering microcontroller input
 function startDecipher() {
     startRecord();
     document.getElementById("decoded").textContent = "Decoded output: ";
@@ -58,6 +65,7 @@ function stopDecipher() {
     deciphering = false;
 }
 
+// deciphers audio input in the same way as microcontroller
 function decipher(value) {
     detectionBuffer.push(value);
     if(detectionBuffer.length > detectLength) {
@@ -90,6 +98,7 @@ function decipher(value) {
     }
 }
 
+// helper function for modified Root Mean Square calculation
 function rmsCalc(buffer) {
     let RMS = 0;
         for(let i = 0; i < buffer.length; i++) {
@@ -100,6 +109,7 @@ function rmsCalc(buffer) {
         return RMS;
 }
 
+// given the output value finds the corresponding letter
 function findLetter(rms) {
     let keys = Object.keys(DECODE);
     let foundLetter = false;

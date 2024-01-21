@@ -6,23 +6,27 @@ from pathlib import Path
 import time
 
 
-FILEPATH = "C:\\Users\\jason\\OneDrive\\Research\\Ubicomp Lab\\TT Recordings\\" 
-WAIT_TIME = 30 #wait time in seconds
-record = True
-BAUDRATE = 115200
-s = serial.Serial("COM3", BAUDRATE)
-app = FastAPI()
-
+# CONSTANTS
 BASE_DIR = Path(__file__).resolve().parent
+FILEPATH = Path(BASE_DIR, 'recordings')
+WAIT_TIME = 30 #wait time in seconds
+BAUDRATE = 115200
+
+# global variables
+record = True
+s = serial.Serial("COM3", BAUDRATE) #serial object
+app = FastAPI() # fastAPI object
+
+# setup js and html files
 app.mount("/static", StaticFiles(directory=Path(BASE_DIR, 'static')), name="static")
 templates = Jinja2Templates(directory=Path(BASE_DIR,'templates'))
 
+# loads page
 @app.get("/recording", status_code = 200)
-
 async def load_page(request : Request):
     return templates.TemplateResponse("sound_browser.html", {"request" : request})
 
-
+# starts recording data and saves it to a txt file in folder recordings
 @app.get("/recording/{DBLevel}")
 async def print_recording(DBLevel):
     fileName = FILEPATH + str(DBLevel) + "dbtest.txt"
